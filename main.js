@@ -5,15 +5,30 @@ let total = document.getElementById('total');
 const movieSelect = document.getElementById('movie');
 let ticketPrice = +movieSelect.value;
 
+// Save selected movie indx and price
+function setMovieData(movieIndex, moviePrice) {
+  localStorage.setItem('selectedMovieIndex', movieIndex);
+  localStorage.setItem('selectedMoviePrice', moviePrice);
+}
+
 // Movie Click Event
 movieSelect.addEventListener('change', e => {
   ticketPrice = +e.target.value;
+  console.log(e.target.selectedIndex, e.target.value);
+  setMovieData(e.target.selectedIndex, e.target.value);
   updateSelectedCount();
 });
 
 // Seat Click Event
 function updateSelectedCount() {
   const selectedSeats = document.querySelectorAll('.row .seat.selected');
+  console.log(selectedSeats);
+
+  // copy selected seats into an array then map through array and return a new array of indexes
+  const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
+  console.log(seatsIndex);
+
+  localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
 
   const selectedSeatsCount = selectedSeats.length;
 
